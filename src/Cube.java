@@ -11,7 +11,7 @@ public class Cube {
     private String[][][] block; // Cube
 
     // Constructor
-    public Cube() {
+    public Cube(int occasion) {
         // Colors
         List<String> colors = new ArrayList<>();
         // White
@@ -50,53 +50,108 @@ public class Cube {
         }
 
         // Randomize cube
-        int randMoves = 1 + (int) (Math.random() * (6)); // Number of randomizing moves
         String moves = ""; // Moves made to randomize the cube
 
-        int move;
-        for (int i = 0; i < randMoves; i++) {
-            // Choose 1 of the 8 available moves
-            move = (int) (Math.random() * (8));
-            
-            switch (move) {
-                case 0:
-                    this.moveU(true);
-                    moves = moves + "U ";
-                    break;
-                case 1:
-                    this.moveE(true);
-                    moves = moves + "E ";
-                    break;
-                case 2:
-                    this.moveD(true);
-                    moves = moves + "D ";
-                    break;
-                case 3:
-                    this.moveF(true);
-                    moves = moves + "F ";
-                    break;
-                case 4:
-                    this.moveS(true);
-                    moves = moves + "S ";
-                    break;
-                case 5:
-                    this.moveB(true);
-                    moves = moves + "B ";
-                    break;
-                case 6:
-                    this.moveR(true);
-                    moves = moves + "R ";
-                    break;
-                case 7:
-                    this.moveM(true);
-                    moves = moves + "M ";
-                    break;
-                case 8:
-                    this.moveL(true);
-                    moves = moves + "L ";
-                    break;
+        if (occasion == 0) {
+            int randMoves = 1 + (int) (Math.random() * (6)); // Number of randomizing moves
+
+            int move;
+            for (int i = 0; i < randMoves; i++) {
+                // Choose 1 of the 8 available moves
+                move = (int) (Math.random() * (8));
+
+                switch (move) {
+                    case 0:
+                        this.moveU(true);
+                        moves = moves + "U ";
+                        break;
+                    case 1:
+                        this.moveE(true);
+                        moves = moves + "E ";
+                        break;
+                    case 2:
+                        this.moveD(true);
+                        moves = moves + "D ";
+                        break;
+                    case 3:
+                        this.moveF(true);
+                        moves = moves + "F ";
+                        break;
+                    case 4:
+                        this.moveS(true);
+                        moves = moves + "S ";
+                        break;
+                    case 5:
+                        this.moveB(true);
+                        moves = moves + "B ";
+                        break;
+                    case 6:
+                        this.moveR(true);
+                        moves = moves + "R ";
+                        break;
+                    case 7:
+                        this.moveM(true);
+                        moves = moves + "M ";
+                        break;
+                    case 8:
+                        this.moveL(true);
+                        moves = moves + "L ";
+                        break;
+                }
             }
+        } else if (occasion == 1) {
+            // Testing cube 1
+            this.moveM(true);
+            this.moveU(true);
+            this.moveS(false);
+            this.moveD(true);
+
+            moves = "M U S' D";
+        } else if (occasion == 2) {
+            // Testing cube 2
+            this.moveU(false);
+            this.moveE(true);
+            this.moveS(false);
+
+            moves = "U' E S'";
+        } else if (occasion == 3) {
+            // Testing cube 3
+            this.moveF(true);
+            this.moveE(true);
+            this.moveU(true);
+            this.moveM(false);
+            this.moveR(true);
+
+            moves = "F E U M' R";
+        } else if (occasion == 4) {
+            // Testing cube 4
+            this.moveF(false);
+            this.moveD(true);
+            this.moveS(true);
+            this.moveF(true);
+
+            moves = "F' D S F";
+        } else if (occasion == 5) {
+            // Testing cube 5
+            this.moveU(false);
+            this.moveE(true);
+            this.moveS(false);
+            this.moveF(false);
+            this.moveD(true);
+
+            moves = "U' E S' F' D";
+        } else {
+            // Testing cube 6
+            this.moveU(false);
+            this.moveE(true);
+            this.moveS(false);
+            this.moveF(false);
+            this.moveD(true);
+            this.moveF(true);
+
+            moves = "U' E S' F' D F";
         }
+
         // Print the randomizing moves
         System.out.println("Moves made to randomize: " + moves);
     }
