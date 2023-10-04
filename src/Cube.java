@@ -174,6 +174,121 @@ public class Cube {
         return this.block;
     }
 
+    public ArrayList<Cube> getChildren() {
+        ArrayList<Cube> children = new ArrayList<>(18);
+        Cube child;
+
+        // Move U
+        child = new Cube(this);
+        child.moveU(true);
+        //child.countHeuristicCost();
+        children.add(child);
+
+        // Move U'
+        child = new Cube(this);
+        child.moveU(false);
+        //child.countHeuristicCost();
+        children.add(child);
+
+        // Move E
+        child = new Cube(this);
+        child.moveE(true);
+        //child.countHeuristicCost();
+        children.add(child);
+
+        // Move E'
+        child = new Cube(this);
+        child.moveE(false);
+        //child.countHeuristicCost();
+        children.add(child);
+
+        // Move D
+        child = new Cube(this);
+        child.moveD(true);
+        //child.countHeuristicCost();
+        children.add(child);
+
+        // Move D'
+        child = new Cube(this);
+        child.moveD(false);
+        //child.countHeuristicCost();
+        children.add(child);
+
+        // Move F
+        child = new Cube(this);
+        child.moveF(true);
+        //child.countHeuristicCost();
+        children.add(child);
+
+        // Move F'
+        child = new Cube(this);
+        child.moveF(false);
+        //child.countHeuristicCost();
+        children.add(child);
+
+        // Move S
+        child = new Cube(this);
+        child.moveS(true);
+        //child.countHeuristicCost();
+        children.add(child);
+
+        // Move S'
+        child = new Cube(this);
+        child.moveS(false);
+        //child.countHeuristicCost();
+        children.add(child);
+
+        // Move B
+        child = new Cube(this);
+        child.moveB(true);
+        //child.countHeuristicCost();
+        children.add(child);
+
+        // Move B'
+        child = new Cube(this);
+        child.moveB(false);
+        //child.countHeuristicCost();
+        children.add(child);
+
+        // Move R
+        child = new Cube(this);
+        child.moveR(true);
+        //child.countHeuristicCost();
+        children.add(child);
+
+        // Move R'
+        child = new Cube(this);
+        child.moveR(false);
+        //child.countHeuristicCost();
+        children.add(child);
+
+        // Move M
+        child = new Cube(this);
+        child.moveM(true);
+        //child.countHeuristicCost();
+        children.add(child);
+
+        // Move M'
+        child = new Cube(this);
+        child.moveM(false);
+        //child.countHeuristicCost();
+        children.add(child);
+
+        // Move L
+        child = new Cube(this);
+        child.moveL(true);
+        //child.countHeuristicCost();
+        children.add(child);
+
+        // Move L'
+        child = new Cube(this);
+        child.moveL(false);
+        //child.countHeuristicCost();
+        children.add(child);
+
+        return children;
+    }
+
     // Setters
     public void setSides(int sides) {
         this.sides = sides;
