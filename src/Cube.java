@@ -50,10 +50,55 @@ public class Cube {
         }
 
         // Randomize cube
-        int randMoves = 1 + (int) (Math.random() * (6)); // Number of moves
-        for (int i = 0; i < randMoves; i++) {
+        int randMoves = 1 + (int) (Math.random() * (6)); // Number of randomizing moves
+        String moves = ""; // Moves made to randomize the cube
 
+        int move;
+        for (int i = 0; i < randMoves; i++) {
+            // Choose 1 of the 8 available moves
+            move = (int) (Math.random() * (8));
+            
+            switch (move) {
+                case 0:
+                    this.moveU(true);
+                    moves = moves + "U ";
+                    break;
+                case 1:
+                    this.moveE(true);
+                    moves = moves + "E ";
+                    break;
+                case 2:
+                    this.moveD(true);
+                    moves = moves + "D ";
+                    break;
+                case 3:
+                    this.moveF(true);
+                    moves = moves + "F ";
+                    break;
+                case 4:
+                    this.moveS(true);
+                    moves = moves + "S ";
+                    break;
+                case 5:
+                    this.moveB(true);
+                    moves = moves + "B ";
+                    break;
+                case 6:
+                    this.moveR(true);
+                    moves = moves + "R ";
+                    break;
+                case 7:
+                    this.moveM(true);
+                    moves = moves + "M ";
+                    break;
+                case 8:
+                    this.moveL(true);
+                    moves = moves + "L ";
+                    break;
+            }
         }
+        // Print the randomizing moves
+        System.out.println("Moves made to randomize: " + moves);
     }
 
     // Copy contrsuctor
@@ -129,7 +174,7 @@ public class Cube {
     // Moves
     private void moveU(boolean clockwise) {
         if (clockwise) {
-            //this.addMove("U");
+            // this.addMove("U");
 
             // Rotate the row
             String[] tempArray = new String[size];
@@ -159,7 +204,7 @@ public class Cube {
                 }
             }
         } else {
-            //this.addMove("U'");
+            // this.addMove("U'");
 
             // Rotate the row
             String[] tempArray = new String[size];
@@ -193,7 +238,7 @@ public class Cube {
 
     private void moveE(boolean clockwise) {
         if (clockwise) {
-            //this.addMove("E");
+            // this.addMove("E");
 
             // Rotate the row
             String[] tempArray = new String[size];
@@ -212,7 +257,7 @@ public class Cube {
                 this.block[0][1][z] = tempArray[z];
             }
         } else {
-            //this.addMove("E'");
+            // this.addMove("E'");
 
             // Rotate the row
             String[] tempArray = new String[size];
@@ -235,7 +280,7 @@ public class Cube {
 
     private void moveD(boolean clockwise) {
         if (clockwise) {
-            //this.addMove("D");
+            // this.addMove("D");
 
             // Rotate the row
             String[] tempArray = new String[size];
@@ -265,7 +310,7 @@ public class Cube {
                 }
             }
         } else {
-            //this.addMove("D'");
+            // this.addMove("D'");
 
             // Rotate the row
             String[] tempArray = new String[size];
@@ -299,7 +344,7 @@ public class Cube {
 
     private void moveR(boolean clockwise) {
         if (clockwise) {
-            //this.addMove("R");
+            // this.addMove("R");
 
             // Rotate the column
             String[] tempArray = new String[size];
@@ -334,7 +379,7 @@ public class Cube {
                 }
             }
         } else {
-            //this.addMove("R'");
+            // this.addMove("R'");
             this.moveR(true);
             this.moveR(true);
             this.moveR(true);
@@ -343,7 +388,7 @@ public class Cube {
 
     private void moveM(boolean clockwise) {
         if (clockwise) {
-            //this.addMove("M");
+            // this.addMove("M");
 
             // Rotate the column
             String[] tempArray = new String[size];
@@ -367,7 +412,7 @@ public class Cube {
                 this.block[4][i][1] = tempArray[i];
             }
         } else {
-            //this.addMove("M'");
+            // this.addMove("M'");
             this.moveM(true);
             this.moveM(true);
             this.moveM(true);
@@ -376,7 +421,7 @@ public class Cube {
 
     private void moveL(boolean clockwise) {
         if (clockwise) {
-            //this.addMove("L");
+            // this.addMove("L");
 
             // Rotate the column
             String[] tempArray = new String[size];
@@ -412,7 +457,7 @@ public class Cube {
             }
 
         } else {
-            //this.addMove("L'");
+            // this.addMove("L'");
             this.moveL(true);
             this.moveL(true);
             this.moveL(true);
@@ -421,7 +466,7 @@ public class Cube {
 
     private void moveF(boolean clockwise) {
         if (clockwise) {
-            //this.addMove("F");
+            // this.addMove("F");
 
             // Rotate the side
             for (int i = 0; i < size / 2; i++) {
@@ -458,7 +503,7 @@ public class Cube {
             }
 
         } else {
-            //this.addMove("F'");
+            // this.addMove("F'");
             this.moveF(true);
             this.moveF(true);
             this.moveF(true);
@@ -467,7 +512,7 @@ public class Cube {
 
     private void moveS(boolean clockwise) {
         if (clockwise) {
-            //this.addMove("S");
+            // this.addMove("S");
 
             // Rotate the column
             String[] tempArray = new String[size];
@@ -493,7 +538,7 @@ public class Cube {
             }
 
         } else {
-            //this.addMove("S'");
+            // this.addMove("S'");
             this.moveS(true);
             this.moveS(true);
             this.moveS(true);
@@ -502,7 +547,7 @@ public class Cube {
 
     private void moveB(boolean clockwise) {
         if (clockwise) {
-            //this.addMove("B");
+            // this.addMove("B");
 
             // Rotate the side
             for (int i = 0; i < size / 2; i++) {
@@ -539,7 +584,7 @@ public class Cube {
             }
 
         } else {
-            //this.addMove("B'");
+            // this.addMove("B'");
             this.moveB(true);
             this.moveB(true);
             this.moveB(true);
