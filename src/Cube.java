@@ -9,9 +9,12 @@ public class Cube {
 
     // Cube
     private String[][][] block; // Cube
+    private int sides; // Number of sides requested
 
     // Constructor
-    public Cube(int occasion) {
+    public Cube(int sides, int occasion) {
+        this.sides = sides;
+
         // Colors
         List<String> colors = new ArrayList<>();
         // White
@@ -158,15 +161,24 @@ public class Cube {
 
     // Copy contrsuctor
     public Cube(Cube copy) {
+        this.setSides(copy.getSides());
         this.setBlock(copy.getBlock());
     }
 
     // Getters
+    public int getSides() {
+        return this.sides;
+    }
+
     public String[][][] getBlock() {
         return this.block;
     }
 
     // Setters
+    public void setSides(int sides) {
+        this.sides = sides;
+    }
+
     public void setBlock(String[][][] block) {
         // Create new cube
         this.block = new String[6][size][size];
@@ -219,10 +231,9 @@ public class Cube {
             }
         }
 
-        // Compare cube's sides in final state
-        if (counter == 6) {
+        // Compare cube's sides in final state with the requested number of sides
+        if (counter >= this.sides)
             return true;
-        }
         return false;
     }
 
