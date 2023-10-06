@@ -3,7 +3,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cube {
+public class Cube implements Comparable<Cube> {
     // Default parameters
     private int size = 3;
     private static final String[][][] solvedCube = {
@@ -404,6 +404,17 @@ public class Cube {
         if (counter >= this.sides)
             return true;
         return false;
+    }
+
+    // Compare cubes based on the A* algorithm and the heuretistic
+    @Override
+    public int compareTo(Cube o) {
+        if ((this.getHeuristicCost() + this.getRootCost()) < (o.getHeuristicCost() + o.getRootCost())) {
+            return -1;
+        } else if ((this.getHeuristicCost() + this.getRootCost()) > (o.getHeuristicCost() + o.getRootCost())) {
+            return 1;
+        }
+        return 0;
     }
 
     // Moves
