@@ -49,5 +49,14 @@ public class Main {
         // Create and print cube
         Cube cube = new Cube(sides, occasion);
         cube.print();
+
+        // Create searcher
+        Searcher searcher = new Searcher();
+
+        // Run the searcher with A* algorithm on the cube
+        cube = searcher.aStar(cube);
+
+        // Print the solution
+        cube.print();
     }
 }
