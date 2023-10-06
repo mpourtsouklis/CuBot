@@ -6,14 +6,31 @@ import java.util.List;
 public class Cube {
     // Default parameters
     private int size = 3;
+    private static final String[][][] solvedCube = {
+            { { "W", "W", "W" }, { "W", "W", "W" }, { "W", "W", "W" } },
+            { { "G", "G", "G" }, { "G", "G", "G" }, { "G", "G", "G" } },
+            { { "R", "R", "R" }, { "R", "R", "R" }, { "R", "R", "R" } },
+            { { "B", "B", "B" }, { "B", "B", "B" }, { "B", "B", "B" } },
+            { { "O", "O", "O" }, { "O", "O", "O" }, { "O", "O", "O" } },
+            { { "Y", "Y", "Y" }, { "Y", "Y", "Y" }, { "Y", "Y", "Y" } }
+    };
 
     // Cube
     private String[][][] block; // Cube
     private int sides; // Number of sides requested
 
+    // Heuristic's parameters
+    private Cube father;
+    private int rootCost; // g(n)
+    private int heuristicCost; // h(n)
+
     // Constructor
     public Cube(int sides, int occasion) {
         this.sides = sides;
+
+        // Default costs
+        this.rootCost = 0;
+        this.heuristicCost = 0;
 
         // Colors
         List<String> colors = new ArrayList<>();
@@ -163,6 +180,9 @@ public class Cube {
     public Cube(Cube copy) {
         this.setSides(copy.getSides());
         this.setBlock(copy.getBlock());
+        // Increase g(n)
+        this.setRootCost(copy.getRootCost() + 1);
+        this.setFather(copy);
     }
 
     // Getters
@@ -174,6 +194,18 @@ public class Cube {
         return this.block;
     }
 
+    public int getRootCost() {
+        return this.rootCost;
+    }
+
+    public int getHeuristicCost() {
+        return this.heuristicCost;
+    }
+
+    public Cube getFather() {
+        return this.father;
+    }
+
     public ArrayList<Cube> getChildren() {
         ArrayList<Cube> children = new ArrayList<>(18);
         Cube child;
@@ -181,109 +213,109 @@ public class Cube {
         // Move U
         child = new Cube(this);
         child.moveU(true);
-        //child.countHeuristicCost();
+        child.countHeuristicCost();
         children.add(child);
 
         // Move U'
         child = new Cube(this);
         child.moveU(false);
-        //child.countHeuristicCost();
+        child.countHeuristicCost();
         children.add(child);
 
         // Move E
         child = new Cube(this);
         child.moveE(true);
-        //child.countHeuristicCost();
+        child.countHeuristicCost();
         children.add(child);
 
         // Move E'
         child = new Cube(this);
         child.moveE(false);
-        //child.countHeuristicCost();
+        child.countHeuristicCost();
         children.add(child);
 
         // Move D
         child = new Cube(this);
         child.moveD(true);
-        //child.countHeuristicCost();
+        child.countHeuristicCost();
         children.add(child);
 
         // Move D'
         child = new Cube(this);
         child.moveD(false);
-        //child.countHeuristicCost();
+        child.countHeuristicCost();
         children.add(child);
 
         // Move F
         child = new Cube(this);
         child.moveF(true);
-        //child.countHeuristicCost();
+        child.countHeuristicCost();
         children.add(child);
 
         // Move F'
         child = new Cube(this);
         child.moveF(false);
-        //child.countHeuristicCost();
+        child.countHeuristicCost();
         children.add(child);
 
         // Move S
         child = new Cube(this);
         child.moveS(true);
-        //child.countHeuristicCost();
+        child.countHeuristicCost();
         children.add(child);
 
         // Move S'
         child = new Cube(this);
         child.moveS(false);
-        //child.countHeuristicCost();
+        child.countHeuristicCost();
         children.add(child);
 
         // Move B
         child = new Cube(this);
         child.moveB(true);
-        //child.countHeuristicCost();
+        child.countHeuristicCost();
         children.add(child);
 
         // Move B'
         child = new Cube(this);
         child.moveB(false);
-        //child.countHeuristicCost();
+        child.countHeuristicCost();
         children.add(child);
 
         // Move R
         child = new Cube(this);
         child.moveR(true);
-        //child.countHeuristicCost();
+        child.countHeuristicCost();
         children.add(child);
 
         // Move R'
         child = new Cube(this);
         child.moveR(false);
-        //child.countHeuristicCost();
+        child.countHeuristicCost();
         children.add(child);
 
         // Move M
         child = new Cube(this);
         child.moveM(true);
-        //child.countHeuristicCost();
+        child.countHeuristicCost();
         children.add(child);
 
         // Move M'
         child = new Cube(this);
         child.moveM(false);
-        //child.countHeuristicCost();
+        child.countHeuristicCost();
         children.add(child);
 
         // Move L
         child = new Cube(this);
         child.moveL(true);
-        //child.countHeuristicCost();
+        child.countHeuristicCost();
         children.add(child);
 
         // Move L'
         child = new Cube(this);
         child.moveL(false);
-        //child.countHeuristicCost();
+        child.countHeuristicCost();
         children.add(child);
 
         return children;
@@ -306,6 +338,14 @@ public class Cube {
                 }
             }
         }
+    }
+
+    public void setFather(Cube father) {
+        this.father = father;
+    }
+
+    public void setRootCost(int rootCost) {
+        this.rootCost = rootCost;
     }
 
     // Print cube
@@ -769,6 +809,35 @@ public class Cube {
             this.moveB(true);
             this.moveB(true);
             this.moveB(true);
+        }
+    }
+
+    // Calculate h(n)
+    private void countHeuristicCost() {
+        this.heuristicCost = 0;
+
+        for (int face = 0; face < 6; face++) {
+            for (int row = 0; row < 3; row++) {
+                for (int col = 0; col < 3; col++) {
+                    String currentColor = this.block[face][row][col];
+                    if (currentColor != solvedCube[face][row][col]) {
+                        // Find the target position
+                        for (int targetFace = 0; targetFace < 6; targetFace++) {
+                            for (int targetRow = 0; targetRow < 3; targetRow++) {
+                                for (int targetCol = 0; targetCol < 3; targetCol++) {
+                                    if (currentColor == solvedCube[targetFace][targetRow][targetCol]) {
+                                        // Calculate Manhattan distance & add to the heuristic
+                                        int distance = Math.abs(face - targetFace) + Math.abs(row - targetRow)
+                                                + Math.abs(col - targetCol);
+                                        this.heuristicCost += distance;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
