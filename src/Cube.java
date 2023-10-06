@@ -19,6 +19,8 @@ public class Cube {
     private String[][][] block; // Cube
     private int sides; // Number of sides requested
 
+    private String moves; // Moves made to solve the cube
+
     // Heuristic's parameters
     private Cube father;
     private int rootCost; // g(n)
@@ -27,6 +29,8 @@ public class Cube {
     // Constructor
     public Cube(int sides, int occasion) {
         this.sides = sides;
+
+        this.moves = "";
 
         // Default costs
         this.rootCost = 0;
@@ -70,52 +74,52 @@ public class Cube {
         }
 
         // Randomize cube
-        String moves = ""; // Moves made to randomize the cube
+        String randomizeMoves = ""; // Moves made to randomize the cube
 
         if (occasion == 0) {
-            int randMoves = 1 + (int) (Math.random() * (6)); // Number of randomizing moves
+            int randomizeCounter = 1 + (int) (Math.random() * (6)); // Number of randomizing moves
 
             int move;
-            for (int i = 0; i < randMoves; i++) {
+            for (int i = 0; i < randomizeCounter; i++) {
                 // Choose 1 of the 8 available moves
                 move = (int) (Math.random() * (8));
 
                 switch (move) {
                     case 0:
                         this.moveU(true);
-                        moves = moves + "U ";
+                        randomizeMoves = randomizeMoves + "U ";
                         break;
                     case 1:
                         this.moveE(true);
-                        moves = moves + "E ";
+                        randomizeMoves = randomizeMoves + "E ";
                         break;
                     case 2:
                         this.moveD(true);
-                        moves = moves + "D ";
+                        randomizeMoves = randomizeMoves + "D ";
                         break;
                     case 3:
                         this.moveF(true);
-                        moves = moves + "F ";
+                        randomizeMoves = randomizeMoves + "F ";
                         break;
                     case 4:
                         this.moveS(true);
-                        moves = moves + "S ";
+                        randomizeMoves = randomizeMoves + "S ";
                         break;
                     case 5:
                         this.moveB(true);
-                        moves = moves + "B ";
+                        randomizeMoves = randomizeMoves + "B ";
                         break;
                     case 6:
                         this.moveR(true);
-                        moves = moves + "R ";
+                        randomizeMoves = randomizeMoves + "R ";
                         break;
                     case 7:
                         this.moveM(true);
-                        moves = moves + "M ";
+                        randomizeMoves = randomizeMoves + "M ";
                         break;
                     case 8:
                         this.moveL(true);
-                        moves = moves + "L ";
+                        randomizeMoves = randomizeMoves + "L ";
                         break;
                 }
             }
@@ -126,14 +130,14 @@ public class Cube {
             this.moveS(false);
             this.moveD(true);
 
-            moves = "M U S' D";
+            randomizeMoves = "M U S' D";
         } else if (occasion == 2) {
             // Testing cube 2
             this.moveU(false);
             this.moveE(true);
             this.moveS(false);
 
-            moves = "U' E S'";
+            randomizeMoves = "U' E S'";
         } else if (occasion == 3) {
             // Testing cube 3
             this.moveF(true);
@@ -142,7 +146,7 @@ public class Cube {
             this.moveM(false);
             this.moveR(true);
 
-            moves = "F E U M' R";
+            randomizeMoves = "F E U M' R";
         } else if (occasion == 4) {
             // Testing cube 4
             this.moveF(false);
@@ -150,7 +154,7 @@ public class Cube {
             this.moveS(true);
             this.moveF(true);
 
-            moves = "F' D S F";
+            randomizeMoves = "F' D S F";
         } else if (occasion == 5) {
             // Testing cube 5
             this.moveU(false);
@@ -159,7 +163,7 @@ public class Cube {
             this.moveF(false);
             this.moveD(true);
 
-            moves = "U' E S' F' D";
+            randomizeMoves = "U' E S' F' D";
         } else {
             // Testing cube 6
             this.moveU(false);
@@ -169,11 +173,11 @@ public class Cube {
             this.moveD(true);
             this.moveF(true);
 
-            moves = "U' E S' F' D F";
+            randomizeMoves = "U' E S' F' D F";
         }
 
         // Print the randomizing moves
-        System.out.println("Moves made to randomize: " + moves);
+        System.out.println("Moves made to randomize: " + randomizeMoves);
     }
 
     // Copy contrsuctor
@@ -204,6 +208,10 @@ public class Cube {
 
     public Cube getFather() {
         return this.father;
+    }
+
+    public String getMoves() {
+        return this.moves;
     }
 
     public ArrayList<Cube> getChildren() {
@@ -348,6 +356,12 @@ public class Cube {
         this.rootCost = rootCost;
     }
 
+    public void addMove(String move) {
+        if (this.getFather() != null) {
+            this.moves = this.getFather().getMoves() + " " + move;
+        }
+    }
+
     // Print cube
     public void print() {
         for (int i = 0; i < 6; i++) {
@@ -395,7 +409,7 @@ public class Cube {
     // Moves
     private void moveU(boolean clockwise) {
         if (clockwise) {
-            // this.addMove("U");
+            this.addMove("U");
 
             // Rotate the row
             String[] tempArray = new String[size];
@@ -425,7 +439,7 @@ public class Cube {
                 }
             }
         } else {
-            // this.addMove("U'");
+            this.addMove("U'");
 
             // Rotate the row
             String[] tempArray = new String[size];
@@ -459,7 +473,7 @@ public class Cube {
 
     private void moveE(boolean clockwise) {
         if (clockwise) {
-            // this.addMove("E");
+            this.addMove("E");
 
             // Rotate the row
             String[] tempArray = new String[size];
@@ -478,7 +492,7 @@ public class Cube {
                 this.block[0][1][z] = tempArray[z];
             }
         } else {
-            // this.addMove("E'");
+            this.addMove("E'");
 
             // Rotate the row
             String[] tempArray = new String[size];
@@ -501,7 +515,7 @@ public class Cube {
 
     private void moveD(boolean clockwise) {
         if (clockwise) {
-            // this.addMove("D");
+            this.addMove("D");
 
             // Rotate the row
             String[] tempArray = new String[size];
@@ -531,7 +545,7 @@ public class Cube {
                 }
             }
         } else {
-            // this.addMove("D'");
+            this.addMove("D'");
 
             // Rotate the row
             String[] tempArray = new String[size];
@@ -565,7 +579,7 @@ public class Cube {
 
     private void moveR(boolean clockwise) {
         if (clockwise) {
-            // this.addMove("R");
+            this.addMove("R");
 
             // Rotate the column
             String[] tempArray = new String[size];
@@ -600,7 +614,7 @@ public class Cube {
                 }
             }
         } else {
-            // this.addMove("R'");
+            this.addMove("R'");
             this.moveR(true);
             this.moveR(true);
             this.moveR(true);
@@ -609,7 +623,7 @@ public class Cube {
 
     private void moveM(boolean clockwise) {
         if (clockwise) {
-            // this.addMove("M");
+            this.addMove("M");
 
             // Rotate the column
             String[] tempArray = new String[size];
@@ -633,7 +647,7 @@ public class Cube {
                 this.block[4][i][1] = tempArray[i];
             }
         } else {
-            // this.addMove("M'");
+            this.addMove("M'");
             this.moveM(true);
             this.moveM(true);
             this.moveM(true);
@@ -642,7 +656,7 @@ public class Cube {
 
     private void moveL(boolean clockwise) {
         if (clockwise) {
-            // this.addMove("L");
+            this.addMove("L");
 
             // Rotate the column
             String[] tempArray = new String[size];
@@ -678,7 +692,7 @@ public class Cube {
             }
 
         } else {
-            // this.addMove("L'");
+            this.addMove("L'");
             this.moveL(true);
             this.moveL(true);
             this.moveL(true);
@@ -687,7 +701,7 @@ public class Cube {
 
     private void moveF(boolean clockwise) {
         if (clockwise) {
-            // this.addMove("F");
+            this.addMove("F");
 
             // Rotate the side
             for (int i = 0; i < size / 2; i++) {
@@ -724,7 +738,7 @@ public class Cube {
             }
 
         } else {
-            // this.addMove("F'");
+            this.addMove("F'");
             this.moveF(true);
             this.moveF(true);
             this.moveF(true);
@@ -733,7 +747,7 @@ public class Cube {
 
     private void moveS(boolean clockwise) {
         if (clockwise) {
-            // this.addMove("S");
+            this.addMove("S");
 
             // Rotate the column
             String[] tempArray = new String[size];
@@ -759,7 +773,7 @@ public class Cube {
             }
 
         } else {
-            // this.addMove("S'");
+            this.addMove("S'");
             this.moveS(true);
             this.moveS(true);
             this.moveS(true);
@@ -768,7 +782,7 @@ public class Cube {
 
     private void moveB(boolean clockwise) {
         if (clockwise) {
-            // this.addMove("B");
+            this.addMove("B");
 
             // Rotate the side
             for (int i = 0; i < size / 2; i++) {
@@ -805,7 +819,7 @@ public class Cube {
             }
 
         } else {
-            // this.addMove("B'");
+            this.addMove("B'");
             this.moveB(true);
             this.moveB(true);
             this.moveB(true);
