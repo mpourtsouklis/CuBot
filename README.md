@@ -4,7 +4,7 @@
 -  **Course:** Artificial Intelligence
 -  **Department:** Computer Science
 -  **Institution:** Athens University of Economics and Business
--  **Semester:** 3rd Year's Fall (2022-23)
+-  **Semester:** 3rd Year's Fall (2021-22)
 -  **Instructor:** Ion Androutsopoulos
 
 ## Overview
